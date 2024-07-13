@@ -7,13 +7,15 @@ const connectDatabase = async () => {
   return new Promise<Mongoose>((resolve, reject) => {
     mongoose
       .connect(mongo_uri, { dbName })
-      .then((mongoose) => {
+      .then((mongoose: any) => {
         resolve(mongoose);
         console.log("connected to Mongoose");
       })
-      .catch((err) => {
+      .catch((err: any) => {
         console.log("error connecting to Mongoose");
         reject(err);
       });
   });
 };
+
+export default connectDatabase;
