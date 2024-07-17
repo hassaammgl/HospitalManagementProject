@@ -1,15 +1,13 @@
 import mongoose, { Schema } from "mongoose";
 
-const userSchema: Schema = new Schema({
+const docterSchema: Schema = new Schema({
   username: {
     type: String,
     required: true,
     unique: true,
   },
-  userType: {
+  avatar: {
     type: String,
-    required: true,
-    enum: ["admin", "user", "patient"],
   },
   password: {
     type: String,
@@ -32,8 +30,24 @@ const userSchema: Schema = new Schema({
     type: Date,
     default: Date.now,
   },
+  appointments: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Appointment",
+    },
+  ],
+  patients: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Patient",
+    },
+  ],
+  specialties: [
+    {
+      type: String,
+      required: true,
+    },
+  ],
 });
 
-// Register the model in mongoose's models object
-// mongoose.models = {};
-export const User = mongoose.model("User", userSchema);
+export const Docter = mongoose.model("Docter", docterSchema);
