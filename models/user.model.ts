@@ -35,5 +35,5 @@ const userSchema: Schema = new Schema({
 });
 
 // Register the model in mongoose's models object
-mongoose.models = {};
+// mongoose.models = {};
 export const User = mongoose.model("User", userSchema);
