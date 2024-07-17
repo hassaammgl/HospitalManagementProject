@@ -26,11 +26,34 @@ const docterSchema: Schema = new Schema({
     type: String,
     required: true,
   },
+  gender: {
+    type: String,
+    required: true,
+    enum: ["male", "female", "other"],
+  },
   registeredAt: {
     type: Date,
     default: Date.now,
   },
-  appointments: [
+  pendingAppointments: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Appointment",
+    },
+  ],
+  newAppointments: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Appointment",
+    },
+  ],
+  rejectedAppointments: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Appointment",
+    },
+  ],
+  previousAppointments: [
     {
       type: Schema.Types.ObjectId,
       ref: "Appointment",
@@ -48,6 +71,29 @@ const docterSchema: Schema = new Schema({
       required: true,
     },
   ],
+  docterId: {
+    type: String,
+    required: true,
+    unique: true,
+    default: `D${Math.floor(Math.random()) * 100000}`,
+  },
+  address: {
+    type: String,
+    required: true,
+  },
+  availableDays: {
+    type: Array,
+    required: true,
+    default: [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday",
+    ],
+  },
 });
 
 export const Docter = mongoose.model("Docter", docterSchema);

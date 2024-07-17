@@ -13,6 +13,11 @@ const patientSchema: Schema = new Schema({
     type: String,
     required: true,
   },
+  gender: {
+    type: String,
+    required: true,
+    enum: ["male", "female", "other"],
+  },
   email: {
     type: String,
     required: true,
@@ -30,24 +35,26 @@ const patientSchema: Schema = new Schema({
     type: Date,
     default: Date.now,
   },
-  appointments: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Appointment",
-    },
-  ],
-  previousConsults: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "PreviousConsult",
-    },
-  ],
+  appointment: {
+    type: Schema.Types.ObjectId,
+    ref: "Appointment",
+  },
   reports: [
     {
       type: Schema.Types.ObjectId,
       ref: "Report",
     },
   ],
+  patientId: {
+    type: String,
+    required: true,
+    unique: true,
+    default: `P${Math.floor(Math.random()) * 100000}`,
+  },
+  address: {
+    type: String,
+    required: true,
+  },
 });
 
 export const Patient = mongoose.model("Patient", patientSchema);
