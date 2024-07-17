@@ -1,6 +1,39 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
-const userSchema =new mongoose.Schema({});
+const userSchema: Schema = new Schema({
+  username: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  userType: {
+    type: String,
+    required: true,
+    enum: ["admin", "user", "patient"],
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  dob: {
+    type: Date,
+    required: true,
+  },
+  phone: {
+    type: String,
+    required: true,
+  },
+  registeredAt: {
+    type: Date,
+    default: Date.now,
+  },
+});
 
-mongoo
+// Register the model in mongoose's models object
+mongoose.models = {};
 export const User = mongoose.model("User", userSchema);
